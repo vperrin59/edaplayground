@@ -70,14 +70,31 @@ module tb();
     rxeyeqmode  = STARTUP_NRZ_DDR;
     rxeyeqmode_s  = rxeyeqmode.name();
 
+    //============================================================================
+    //  Testing a_eyeq_req
+    //============================================================================
+    // rxpdwn  = POWERDOWN_COMA;
+
     repeat(10)
       @(posedge clk);
+
+    //============================================================================
+    //  Testing a_eyeq_req_stable
+    //============================================================================
+    // rxeyeqmode = BACKGROUND_NRZ_DDR;
 
     rxeyeqdone  = 1;
     rxeyeq      = 10;
 
     repeat(2)
       @(posedge clk);
+
+    //============================================================================
+    //  Testing a_eyeq
+    //============================================================================
+    // rxeyeq      = 5;
+    // repeat(2)
+    //   @(posedge clk);
 
     rxeyeqreq   = 0;
 
@@ -96,7 +113,8 @@ module tb();
   //============================================================================
 
 
-  a_eyeq_req    : assert property(@(posedge clk) $rose(rxeyeqreq) |-> rxeyeqmode == STARTUP_NRZ_DDR);
+  a_eyeq_req          : assert property(@(posedge clk) $rose(rxeyeqreq) |-> rxpdwn == POWERDOWN_NORMAL);
+  a_eyeq_req_stable   : assert property(@(posedge clk) $rose(rxeyeqreq) |=> $stable(rxeyeqmode) s_until_with $fell(rxeyeqdone));
 
 
   a_4way_hs_0   : assert property(@(posedge clk) $rose(rxeyeqreq) |-> !rxeyeqdone);
