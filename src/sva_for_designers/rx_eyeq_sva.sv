@@ -103,6 +103,9 @@ module tb();
 
     rxeyeqdone  = 0;
 
+    repeat(2)
+      @(posedge clk);
+
     #10ns;
     $finish;
   end
@@ -112,15 +115,18 @@ module tb();
   //  Checkers
   //============================================================================
 
-
+  // Checks rxeyeqreq can only be asserted during POWERDOWN_NORMAL
   a_eyeq_req          : assert property(@(posedge clk) $rose(rxeyeqreq) |-> rxpdwn == POWERDOWN_NORMAL);
+  // Checks when rxeyeqreq is asserted, rxeyeqmode is stable until rxeyeqdone is deasserted
   a_eyeq_req_stable   : assert property(@(posedge clk) $rose(rxeyeqreq) |=> $stable(rxeyeqmode) s_until_with $fell(rxeyeqdone));
 
 
+  // 4way handshake checks
   a_4way_hs_0   : assert property(@(posedge clk) $rose(rxeyeqreq) |-> !rxeyeqdone);
   a_4way_hs_1   : assert property(@(posedge clk) $rose(rxeyeqdone) |-> rxeyeqreq);
   a_4way_hs_2   : assert property(@(posedge clk) $fell(rxeyeqreq) |-> rxeyeqdone);
 
+  // Checks that when rxeyeqdone is asserted rxeyeq is stable until rxeyeq is deasserted
   a_eyeq        : assert property(@(posedge clk) $rose(rxeyeqdone) ##1 1 |-> $stable(rxeyeq) until $fell(rxeyeqreq));
 
 endmodule
