@@ -1,6 +1,8 @@
 `default_nettype none
 
-// Try struct
+//============================================================================
+//  Testbench for showing how to use wire / var in the module port list
+//============================================================================
 
 typedef struct packed {
   int a;
