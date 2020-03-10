@@ -16,6 +16,9 @@ module test;
 
   var C_t C = '{th: 3.14/2.0, r: 1.0};
 
+  // Default values for struct
+  var C_t C_default = '{default: 0.0};
+
   var real y [0:1] = '{0.0, 1.1}, z [0:9] = '{default: 3.1416};
 
   initial
