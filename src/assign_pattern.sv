@@ -21,6 +21,22 @@ module test;
 
   var real y [0:1] = '{0.0, 1.1}, z [0:9] = '{default: 3.1416};
 
+  //============================================================================
+  //  Queue assignment
+  //============================================================================
+
+  typedef enum {
+    ENUM_0,
+    ENUM_1
+  } enum_t;
+
+  enum_t enum_q[$] = {ENUM_0, ENUM_1};
+  bit enum_inside_q;
+
+  // W: for some simulators, queues need to be used in procedural context
+  // Dynamic type in non-procedural context
+  assign enum_inside_q = ENUM_0 inside {enum_q};
+
   // Signed struct pack
   typedef struct packed signed {
     logic itg;
