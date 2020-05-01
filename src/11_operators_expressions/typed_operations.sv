@@ -24,6 +24,8 @@ module tb();
 
   int a, b;
 
+  // a+=1 equivalent to ++a
+
   initial begin
     // Equivalent to blocking assignment
     // Left hand expression evaluated once
@@ -53,6 +55,10 @@ module tb();
     b = 20;
     a = b++; // a = 20, because b is incr after assigned
     $display("b++ a %0d b %0d", a, b);
+    a = 10;
+    b = 20;
+    a = (b+=1); // a = 21, because b is incr before assigned
+    $display("b+=1 a %0d b %0d", a, b);
   end
 
 
