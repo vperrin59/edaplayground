@@ -1,3 +1,5 @@
+// IEEE 1800-2017 Section 13.3.1 and 13.4.2
+
 // Normal package
 // Declaring package automatic will define all functions. tasks inside as automatic
 package /*automatic*/ complex_pkg;

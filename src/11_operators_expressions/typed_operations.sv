@@ -1,3 +1,5 @@
+// Apparently Cadence tool doesn't support assignment in expressions
+
 module tb();
 
   int IntA;
