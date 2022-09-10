@@ -24,5 +24,6 @@ jobs:
     steps:
       - name: Check for dockerenv file
         run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+      - uses: actions/checkout@v3
       - name: Check for mounted point
-        run: ls /work
+        run: ls /work && pwd && ls
