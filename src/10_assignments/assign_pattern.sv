@@ -16,7 +16,35 @@ module test;
 
   var C_t C = '{th: 3.14/2.0, r: 1.0};
 
+  // Default values for struct
+  var C_t C_default = '{default: 0.0};
+
   var real y [0:1] = '{0.0, 1.1}, z [0:9] = '{default: 3.1416};
+
+  // REG0, REG1, REG2, REG3
+  enum { REG[0:3]} regname_e;
+
+  //============================================================================
+  //  Queue assignment
+  //============================================================================
+
+  typedef enum {
+    ENUM_0,
+    ENUM_1
+  } enum_t;
+
+  enum_t enum_q[$] = {ENUM_0, ENUM_1};
+  bit enum_inside_q;
+
+  // W: for some simulators, queues need to be used in procedural context
+  // Dynamic type in non-procedural context
+  assign enum_inside_q = ENUM_0 inside {enum_q};
+
+  // Signed struct pack
+  typedef struct packed signed {
+    logic itg;
+    logic frac;
+  } acc_t;
 
   initial
     $monitor("@%0t: A[0] = %d, A[1] = %d, B = %b, y[0] = %f, y[1] = %f", $time, A[0], A[1], B, y[0], y[1]);

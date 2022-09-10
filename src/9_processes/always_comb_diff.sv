@@ -23,6 +23,8 @@ module test;
   initial
     $monitor("@%0t: a0 = %d, b0 = %d, c0 = %d, a1 = %d, b1 = %d, c1 = %d", $time, a0, b0, c0, a1, b1, c1);
 
+  // IEEE 1800 - 2017 Section 9.2.2.2.2
+
   // always_comb
   // When is it triggered ? does lhs retrigger sensitivity ?
   // always_comb automatically executes once at time zero, whereas always @* waits until a change occurs on a signal in the inferred sensitivity list.

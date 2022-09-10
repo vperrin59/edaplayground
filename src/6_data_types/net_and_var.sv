@@ -28,6 +28,19 @@ module dut(
   4-state base type, structure, union, and fixed-size arrays.
 */
 
+//============================================================================
+//  Variable declarations IEEE 1800-2017 Section 6.8
+//============================================================================
+
+// If no data type specified, implicitly use logic
+
+var byte my_byte; // equivalent to "byte my_byte;"
+var v;            // equivalent to "var logic v;"
+var [15:0] vw;    // equivalent to "var logic [15:0] vw;"
+var enum bit { clear, error } status;
+var reg r;
+
+
 endmodule : dut
 
 module tb();
