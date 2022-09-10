@@ -14,7 +14,7 @@ module test;
 
     a0 = 1;
     a1 = 1;
-    #100ns
+    #100ns;
 
     #1us;
     $finish;
