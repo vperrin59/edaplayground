@@ -14,14 +14,15 @@ jobs:
   container-test-job:
     runs-on: ubuntu-latest
     container:
-      image: node:14.16
-      env:
-        NODE_ENV: development
+      image: lccitools/icarus-verilog
+      # env:
+      #   NODE_ENV: development
       ports:
         - 80
       volumes:
-        - my_docker_volume:/volume_mount
-      options: --cpus 1
+        - my_docker_volume:/work
     steps:
       - name: Check for dockerenv file
         run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+      - name: Check for mounted point
+        run: ls /work
