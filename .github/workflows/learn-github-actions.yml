@@ -27,3 +27,5 @@ jobs:
       - uses: actions/checkout@v3
       - name: Check for mounted point
         run: ls /work && pwd && ls
+      - which iverilog
+      - iverilog -g2012 src/wildcard_equality.sv
