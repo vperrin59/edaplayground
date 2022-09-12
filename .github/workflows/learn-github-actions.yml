@@ -28,6 +28,6 @@ jobs:
       - name: Check for work dir
         run: ls /work
       - name: Check for mounted point
-        run: pwd && ls
+        run: pwd && ls src/
       - run: which iverilog
-      - run: iverilog -g2012 /work/src/wildcard_equality.sv
+      - run: iverilog -g2012 src/11_operators_expressions/wildcard_equality.sv
