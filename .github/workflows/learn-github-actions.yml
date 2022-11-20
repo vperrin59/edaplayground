@@ -25,6 +25,7 @@ jobs:
 
   eda-playground-job:
     runs-on: ubuntu-latest
+    environment: test
     # container:
     #   image: selenium/standalone-chrome
     #   # env:
@@ -50,4 +51,5 @@ jobs:
       - run: pip install selenium==3.14.1
       - run: chromedriver --url-base=/wd/hub --whitelisted-ips= &
       - run: python3 run.py
+      - run: ls
 
