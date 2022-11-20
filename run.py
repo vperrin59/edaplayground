@@ -12,9 +12,10 @@ import time
 webdriver_path = "/usr/bin/chromedriver"
 
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
+if "EDA_HEADLESS" in os.environ:
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
 
 prefs = {"profile.default_content_settings.popups": 0, "download.default_directory": os.getcwd()}
 chrome_options.add_experimental_option("prefs", prefs)
@@ -55,6 +56,28 @@ design_fnames = [
     os.path.join(cwd, "src/9_processes/always_comb_diff.sv"),
 ]
 
+simulators = {
+    "Aldec": 1204,
+    "Xcelium": 1501,
+    "Questa": 1701,
+    "VCS": 1301,
+}
+
+script = r"""
+     $('#testbenchLanguage').val('SystemVerilog/Verilog');
+     $('#methodologyLibrary').val('701'); // UVM 1.2
+     $('#otherLibrary').val('');
+     $('#simulator').val({});
+     """.format(simulators["Xcelium"])
+
+
+driver.execute_script(script)
+
+# Only click this once
+driver.execute_script("$('#resultZip').click();")
+
+wait = WebDriverWait(driver, timeout=120, poll_frequency=0.5)
+
 for design_fname in design_fnames:
 
     try:
@@ -69,21 +92,9 @@ for design_fname in design_fnames:
     design = json.dumps(design)
     testbench = json.dumps(testbench)
 
-    simulators = {
-        "Aldec": 1204,
-        "Xcelium": 1501,
-        "Questa": 1701,
-        "VCS": 1301,
-    }
-
          # $('#vcsCompileOptions').val("-timescale=1ns/1ns +vcs+flush+all +warn=all -sverilog");
 
     script = r"""
-         $('#testbenchLanguage').val('SystemVerilog/Verilog');
-         $('#methodologyLibrary').val('701'); // UVM 1.2
-         $('#otherLibrary').val('');
-         $('#resultZip').click();
-         $('#simulator').val({});
          var designEditor = designTabs.getActiveEditor();
          designEditor.setValue({});
 
@@ -92,7 +103,7 @@ for design_fname in design_fnames:
 
          $('#runButton').click();
 
-         """.format(simulators["Xcelium"], design, testbench).strip()
+         """.format(design, testbench).strip()
 
 
     driver.execute_script(script)

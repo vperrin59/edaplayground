@@ -19,7 +19,7 @@ module a
 
 endmodule
 
-module tb();
+module module_tb();
 
 
   // Many tools don't support nested module
@@ -35,4 +35,4 @@ module tb();
 
   // endmodule
 
-endmodule : tb
+endmodule : module_tb

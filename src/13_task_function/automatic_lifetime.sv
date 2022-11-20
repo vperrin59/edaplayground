@@ -84,6 +84,7 @@ module test;
       end
     end
     $display("\n");
+    $finish;
   end
 
 
