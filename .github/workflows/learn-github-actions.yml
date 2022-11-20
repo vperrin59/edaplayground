@@ -1,15 +1,6 @@
-name: learn-github-actions
+name: Verilog Compile
 on: [push]
 jobs:
-  check-bats-version:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
 
   container-test-job:
     runs-on: ubuntu-latest
@@ -31,3 +22,28 @@ jobs:
         run: pwd && ls src/
       - run: which iverilog
       - run: iverilog -g2012 src/11_operators_expressions/wildcard_equality.sv
+
+  eda-playground-job:
+    runs-on: ubuntu-latest
+    # container:
+    #   image: selenium/standalone-chrome
+    #   # env:
+    #   #   NODE_ENV: development
+    #   ports:
+    #     - 80
+    #   volumes:
+    #     - my_docker_volume:/work
+    steps:
+      - run: apt update
+      - run: apt install wget unzip python3-pip -y
+      - run: cd /home/
+      - run: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      - run: dpkg -i google-chrome-stable_current_amd64.deb
+      - run: apt-get install -f -y
+      - run: dpkg -i google-chrome-stable_current_amd64.deb
+      - run: google-chrome --version
+      - run: wget https://chromedriver.storage.googleapis.com/107.0.5304.62/chromedriver_linux64.zip
+      - run: unzip ./chromedriver_linux64.zip
+      - run: mv chromedriver /usr/bin/
+      - run: chmod +x /usr/bin/chromedriver
+      - run: chromedriver --url-base=/wd/hub --whitelisted-ips=
