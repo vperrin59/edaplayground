@@ -55,4 +55,6 @@ jobs:
           EDA_TOKEN: ${{ secrets.EDA_TOKEN }}
         run: python3 run.py
       - run: ls
+      - run: mkdir -p results && unzip result.zip -d results/
+      - run: cat results/xrun.log
 
