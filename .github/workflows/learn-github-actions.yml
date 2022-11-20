@@ -47,6 +47,7 @@ jobs:
       - run: unzip ./chromedriver_linux64.zip
       - run: sudo mv chromedriver /usr/bin/
       - run: sudo chmod +x /usr/bin/chromedriver
+      - run: pip install selenium==3.14.1
       - run: chromedriver --url-base=/wd/hub --whitelisted-ips= &
       - run: python3 run.py
 
