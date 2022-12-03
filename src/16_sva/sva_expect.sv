@@ -33,7 +33,7 @@ module tb();
   bit b;
 
 
-  always #1 clk = ~clk;
+  always #1ns clk = ~clk;
 
   default clocking cb @(posedge clk);
     inout a;
@@ -66,4 +66,11 @@ module tb();
 
     $display("PKG EXPECT AFTER");
   end
+
+  initial begin
+    #1us;
+    $display("TIMEOUT OCCURED");
+    $finish;
+  end
+
 endmodule : tb
