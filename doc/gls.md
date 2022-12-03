@@ -12,3 +12,4 @@
 * Modelling code inside `ifdef` in RTL will be removed in GLS
 * Flops without reset may need to be initialized with random values
 * Memory need to be initialized after reset sequence if needed with some hex
+* Simulator options
