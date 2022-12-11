@@ -53,6 +53,7 @@ jobs:
       - env:
           EDA_LOGIN: ${{ secrets.EDA_LOGIN }}
           EDA_TOKEN: ${{ secrets.EDA_TOKEN }}
+          EDA_HEADLESS: 1
         run: python3 run.py
       - run: ls
       - run: mkdir -p results && unzip result.zip -d results/
